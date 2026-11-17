@@ -1,10 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Interface gráfica (Tkinter) - Sistema de Cadastro de Clientes da Peixaria.
-Usa o mesmo arquivo 'dados_peixaria.json' da versão de terminal (peixaria.py),,
-então os dois programas compartilham os mesmos dados se estiverem na mesma pasta.
-"""
 
 import json
 import os
@@ -35,10 +28,6 @@ COR_TOPO = "#3722af"
 COR_DESTAQUE = "#1b049e"
 COR_LINHA = "#f8f8fa"
 
-
-# ----------------------------------------------------------------------
-# Dados
-# ----------------------------------------------------------------------
 def carregar_dados():
     if os.path.exists(ARQUIVO):
         try:
@@ -77,10 +66,6 @@ def formatar_telefone(tel):
         return f"({d[:2]}) {d[2:6]}-{d[6:]}"
     return tel
 
-
-# ----------------------------------------------------------------------
-# Janelas de formulário
-# ----------------------------------------------------------------------
 class DialogoBase(tk.Toplevel):
     def __init__(self, master, titulo):
         super().__init__(master)
@@ -208,9 +193,6 @@ class DialogoPeixe(DialogoBase):
         self.destroy()
 
 
-# ----------------------------------------------------------------------
-# Aplicação principal
-# ----------------------------------------------------------------------
 class App(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -227,7 +209,7 @@ class App(tk.Tk):
         self._rodape()
         self.atualizar_tudo()
 
-    # ---------- construção ----------
+
     def _estilos(self):
         s = ttk.Style(self)
         try:
@@ -281,7 +263,7 @@ class App(tk.Tk):
         tabela.tag_configure("par", background=COR_LINHA)
         return tabela
 
-    # ---------- aba de clientes ----------
+
     def _aba_clientes(self):
         aba = ttk.Frame(self.abas, padding=12)
         self.abas.add(aba, text="👤  Clientes")
@@ -318,7 +300,6 @@ class App(tk.Tk):
         ttk.Button(botoes, text="✏️ Editar", command=self.editar_cliente).pack(side="left", padx=8)
         ttk.Button(botoes, text="🗑️ Remover", command=self.remover_cliente).pack(side="left")
 
-    # ---------- aba de peixes ----------
     def _aba_peixes(self):
         aba = ttk.Frame(self.abas, padding=12)
         self.abas.add(aba, text="🐠  Tipos de peixes")
@@ -342,7 +323,6 @@ class App(tk.Tk):
         ttk.Button(botoes, text="✏️ Editar", command=self.editar_peixe).pack(side="left", padx=8)
         ttk.Button(botoes, text="🗑️ Remover", command=self.remover_peixe).pack(side="left")
 
-    # ---------- atualização das telas ----------
     def atualizar_tudo(self):
         self.atualizar_filtro_peixes()
         self.atualizar_clientes()
@@ -404,7 +384,6 @@ class App(tk.Tk):
             text=f"{len(self.dados['clientes'])} clientes  |  {len(self.dados['peixes'])} tipos de peixe"
         )
 
-    # ---------- ações: clientes ----------
     def _cliente_selecionado(self):
         sel = self.tab_clientes.selection()
         if not sel:
